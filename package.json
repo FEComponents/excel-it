@@ -1,12 +1,13 @@
 {
-  "name": "@femessage/excel-it",
-  "version": "3.0.3",
-  "description": "",
-  "author": "https://github.com/FEMessage",
+  "name": "@fe-components/excel-it",
+  "version": "1.0.1",
+  "description":
+    "[![Build Status](https://badgen.net/travis/FEMessage/excel-it/master)](https://travis-ci.com/FEMessage/excel-it)\r [![NPM Download](https://badgen.net/npm/dm/@femessage/excel-it)](https://www.npmjs.com/package/@femessage/excel-it)\r [![NPM Version](https://badgen.net/npm/v/@femessage/excel-it)](https://www.npmjs.com/package/@femessage/excel-it)\r [![NPM License](https://badgen.net/npm/license/@femessage/excel-it)](https://github.com/FEMessage/excel-it/blob/master/LICENSE)\r [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/FEMessage/excel-it/pulls)\r [![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)](https://github-tools.github.io/github-release-notes/)",
+  "author": "https://github.com/FEComponents",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/FEMessage/excel-it.git"
+    "url": "git+https://github.com/FEComponents/excel-it.git"
   },
   "keywords": ["excel", "excel-export", "excel-import"],
   "files": ["src", "dist"],
@@ -70,5 +71,13 @@
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
   },
-  "gren": "@femessage/grenrc"
+  "gren": "@femessage/grenrc",
+  "bugs": {
+    "url": "https://github.com/FEComponents/excel-it/issues"
+  },
+  "homepage": "https://github.com/FEComponents/excel-it#readme",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  }
 }
