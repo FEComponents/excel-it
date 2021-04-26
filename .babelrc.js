@@ -3,11 +3,11 @@ module.exports = api => {
     presets: [['@babel/env', {modules: api.env('test') ? 'commonjs' : false}]],
     plugins: [
       [
-        '@babel/transform-runtime',
+        '@babel/plugin-transform-runtime',
         {
-          regenerator: true,
+          regenerator: true
           // https://babeljs.io/docs/en/babel-plugin-transform-runtime#absoluteruntime
-          absoluteRuntime: true
+          // absoluteRuntime: true
         }
       ]
     ]

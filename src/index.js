@@ -87,7 +87,116 @@ function s2ab(str) {
   }
   return buf
 }
+function getIndexByKey(header, name) {
+  return header.lastIndexOf(name)
+}
+// 设置图片大小
+function getImageList(imageKeys, data, header, imgWidth) {
+  return imageKeys.map(key =>
+    data.map((item, index) => ({
+      key,
+      url: item[key.prop],
+      col: getIndexByKey(header, key.label) + 1,
+      row: index + 2,
+      width: imgWidth,
+      height: imgWidth
+    }))
+  )
+}
+//
+// 获取图片base64格式
+function getBase64(file) {
+  return new Promise(function(resolve, reject) {
+    // let reader = new FileReader();
+    // let imgResult = "";
+    // reader.readAsDataURL(file);
+    // reader.onload = function () {
+    //   imgResult = reader.result;
+    // };
+    // reader.onerror = function (error) {
+    //   reject(error);
+    // };
+    // reader.onloadend = function () {
+    //   resolve(imgResult);
+    // };
+    console.log('6666666666666666666666666', file)
+    //   let requestInstance = new Request('http://localhost:7001/api/common/getBase64', {
+    //     method: 'post',
+    //     headers: {
+    //         'Content-Type': 'application/json;charset=utf-8'
+    //     },
+    //     mode:'no-cors',
+    //     body: {"url": file}
+    // })
+    fetch('http://172.19.58.21:7001/api/common/getBase64', {
+      method: 'post',
+      // headers: {
+      //     'Content-Type': 'application/json;charset=utf-8'
+      // },
+      mode: 'no-cors',
+      body: JSON.stringify({url: file})
+    })
+      .then(function(response) {
+        return response.json()
+      })
+      .then(resp => {
+        resolve(resp.url)
+      })
+    // var img = document.createElement('img');
+    //         img.onload =function() {
+    //           var canvas = document.createElement("canvas");
+    //           canvas.width = img.width;
+    //           canvas.height = img.height;
+    //           console.log(img);
+    //           var ctx = canvas.getContext("2d");
+    //           ctx.drawImage(img, 0, 0, img.width, img.height);
+    //           var dataURL = canvas.toDataURL("image/jpg");
 
+    //             resolve(dataURL);
+
+    //         }
+    //         img.crossOrigin = 'anonymous';
+    //          img.src = file+"&timeStamp="+new Date();
+    // document.body.appendChild(img);
+  })
+}
+// 添加图片到sheet
+async function addPicToSheet(imageList, imageKeys, workbook, worksheet) {
+  if (imageKeys.length > 0) {
+    await Promise.all(
+      imageList.map(async imgArr => {
+        return await Promise.all(
+          imgArr.map(item => {
+            const {url, width, height, row, col} = item
+            // 因为有的图片是不存在的需要判断
+            if (url) {
+              return getBase64(url).then(res => {
+                console.log('!!!!!!!!!!', res)
+                if (!url) return
+                const imgType = url
+                  .split('?')[0]
+                  .substring(url.split('?')[0].lastIndexOf('.') + 1)
+                  .toLowerCase()
+                const id = workbook.addImage({
+                  base64: res,
+                  extension: imgType
+                })
+                worksheet.addImage(id, {
+                  tl: {col: col - 1, row: row - 1},
+                  ext: {width, height}
+                })
+                worksheet.getRow(row).height = height
+                // // 去掉背景链接
+                worksheet.getRow(row).getCell(item.key.name).value = ''
+              })
+            }
+            return item
+          })
+        )
+      })
+    )
+  }
+}
 /**
  * 将json转换为字符串
  * @param columns Array excel表头数组，数据格式为[{label: '', props: ''}] 与element-ui table传入的数据格式一致
@@ -97,13 +206,25 @@ function s2ab(str) {
  * @param merges Array 导出的表头合并的单元格, 数据格式['A1', 'E1']， 表示合并从A1到E1的单元格
  * @param callback Function 成功后的回调
  */
-export function exportExcel(
-  {columns = [], data = [], fileName = 'download', header = null, merges = []},
+export async function exportExcel(
+  {
+    columns = [],
+    data = [],
+    imageKeys = [],
+    fileName = 'download',
+    header = null,
+    merges = []
+  },
   callback = () => {}
 ) {
+  let workbook = new Workbook()
   // 处理数据格式
   const head = columns.map(e => e.label)
-  const data2D = data.map(row => columns.map(col => row[col.prop]))
+  const data2D = data.map(row =>
+    columns.map(col => {
+      return row[col.prop]
+    })
+  )
 
   data2D.unshift(head)
   if (header) {
@@ -111,12 +232,20 @@ export function exportExcel(
   }
   const worksheetName = 'Sheet'
 
-  let workbook = new Workbook(),
-    worksheet = sheet_from_array_of_arrays(data2D)
+  let worksheet = sheet_from_array_of_arrays(data2D)
+
+  // 处理图片
+  const imageList = getImageList(imageKeys, data, head, 100)
+  // 添加图片到sheet
+  await addPicToSheet(imageList, imageKeys, workbook, worksheet)
 
   if (typeof merges[0] === 'string' && merges.length === 2) merges = [merges] // just one # ['A1', 'C1'] = > [['A1', 'C1']]
   merges = merges.map(i => (i instanceof Array ? {s: i[0], e: i[1]} : i)) // be sort :) # ['A1', 'C1'] => { s: 'A1', e: 'C3' }
   worksheet['!merges'] = merges
+  let cols = columns.map(elems => {
+    return {wch: elems.width ? elems.width : 20}
+  })
+  worksheet['!cols'] = cols
 
   workbook.SheetNames.push(worksheetName)
   workbook.Sheets[worksheetName] = worksheet
