@@ -1,6 +1,6 @@
 {
   "name": "@fe-components/excel-it",
-  "version": "4.0.3",
+  "version": "4.0.5",
   "description":
     "[![Build Status](https://badgen.net/travis/FEMessage/excel-it/master)](https://travis-ci.com/FEMessage/excel-it)\r [![NPM Download](https://badgen.net/npm/dm/@femessage/excel-it)](https://www.npmjs.com/package/@femessage/excel-it)\r [![NPM Version](https://badgen.net/npm/v/@femessage/excel-it)](https://www.npmjs.com/package/@femessage/excel-it)\r [![NPM License](https://badgen.net/npm/license/@femessage/excel-it)](https://github.com/FEMessage/excel-it/blob/master/LICENSE)\r [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/FEMessage/excel-it/pulls)\r [![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)](https://github-tools.github.io/github-release-notes/)",
   "author": "https://github.com/FEComponents",
