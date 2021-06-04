@@ -1,22 +1,16 @@
 {
-  "name": "@femessage/excel-it",
-  "version": "3.2.0",
-  "description": "",
-  "author": "https://github.com/FEMessage",
+  "name": "@fe-components/excel-it",
+  "version": "4.0.5",
+  "description":
+    "[![Build Status](https://badgen.net/travis/FEMessage/excel-it/master)](https://travis-ci.com/FEMessage/excel-it)\r [![NPM Download](https://badgen.net/npm/dm/@femessage/excel-it)](https://www.npmjs.com/package/@femessage/excel-it)\r [![NPM Version](https://badgen.net/npm/v/@femessage/excel-it)](https://www.npmjs.com/package/@femessage/excel-it)\r [![NPM License](https://badgen.net/npm/license/@femessage/excel-it)](https://github.com/FEMessage/excel-it/blob/master/LICENSE)\r [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/FEMessage/excel-it/pulls)\r [![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE.svg)](https://github-tools.github.io/github-release-notes/)",
+  "author": "https://github.com/FEComponents",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/FEMessage/excel-it.git"
+    "url": "git+https://github.com/FEComponents/excel-it.git"
   },
-  "keywords": [
-    "excel",
-    "excel-export",
-    "excel-import"
-  ],
-  "files": [
-    "src",
-    "dist"
-  ],
+  "keywords": ["excel", "excel-export", "excel-import"],
+  "files": ["src", "dist"],
   "main": "dist/excel-it.umd.js",
   "module": "dist/excel-it.esm.js",
   "unpkg": "dist/excel-it.min.js",
@@ -25,16 +19,23 @@
     "dev": "vue-styleguidist server",
     "test": "jest",
     "doc": "vue-styleguidist build",
-    "build": "npm run build:unpkg & npm run build:es & npm run build:umd & npm run doc",
-    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/excel-it.umd.js",
-    "build:es": "rollup --config build/rollup.config.js --format es --file dist/excel-it.esm.js",
-    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/excel-it.min.js",
+    "build":
+      "npm run build:unpkg & npm run build:es & npm run build:umd & npm run doc",
+    "build:umd":
+      "rollup --config build/rollup.config.js --format umd --file dist/excel-it.umd.js",
+    "build:es":
+      "rollup --config build/rollup.config.js --format es --file dist/excel-it.esm.js",
+    "build:unpkg":
+      "rollup --config build/rollup.config.js --format iife --file dist/excel-it.min.js",
     "precommit": "pretty-quick --staged",
     "stdver": "standard-version -m '[skip ci] chore(release): v%s'",
     "release": "gren release --override"
   },
   "dependencies": {
+    "exceljs": "^4.2.1",
     "file-saver": "^2.0.1",
+    "fs": "^0.0.1-security",
+    "image-to-base64": "^2.2.0",
     "xlsx": "^0.14.1"
   },
   "devDependencies": {
@@ -73,5 +74,13 @@
     "node": ">= 4.0.0",
     "npm": ">= 3.0.0"
   },
-  "gren": "@femessage/grenrc"
+  "gren": "@femessage/grenrc",
+  "bugs": {
+    "url": "https://github.com/FEComponents/excel-it/issues"
+  },
+  "homepage": "https://github.com/FEComponents/excel-it#readme",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  }
 }

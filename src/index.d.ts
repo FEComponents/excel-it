@@ -16,11 +16,11 @@ declare module '@femessage/excel-it' {
     callback?: () => void
   ) => void
 
-  export const importExcel: (ignore?: any[], callback?: () => void) => void
+  // export const importExcel: (ignore?: any[], callback?: () => void) => void
 
-  export const parseExcel: (
-    file: any,
-    ignore?: any[],
-    callback?: () => void
-  ) => void
+  // export const parseExcel: (
+  //   file: any,
+  //   ignore?: any[],
+  //   callback?: () => void
+  // ) => void
 }
