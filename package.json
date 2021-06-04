@@ -32,7 +32,10 @@
     "release": "gren release --override"
   },
   "dependencies": {
+    "exceljs": "^4.2.1",
     "file-saver": "^2.0.1",
+    "fs": "^0.0.1-security",
+    "image-to-base64": "^2.2.0",
     "xlsx": "^0.14.1"
   },
   "devDependencies": {
